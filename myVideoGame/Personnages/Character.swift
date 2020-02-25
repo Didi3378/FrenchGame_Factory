@@ -10,22 +10,22 @@ import Cocoa
 
 //class Personnage {
     
- //   let name: String
-   // var lifePoints: Int = 100
- //   var weapon: Weapon = Weapon()
+// let name: String
+// var lifePoints: Int = 100
+// var weapon: Weapon = Weapon()
 
-  //  init(characterName: String, lifePoints: Int, weapon: Weapon) {
-    //     self.name = characterName
-    //    self.lifePoints = lifePoints
-      //  self.weapon = weapon
+// init(characterName: String, lifePoints: Int, weapon: Weapon) {
+//     self.name = characterName
+//     self.lifePoints = lifePoints
+//      self.weapon = weapon
     
-   // }
-    //func attack(adversaire: Personnage) -> Personnage {
-      //  adversaire.lifePoints = adversaire.lifePoints - weapon.damage
+// }
+// func attack(adversaire: Personnage) -> Personnage {
+//  adversaire.lifePoints = adversaire.lifePoints - weapon.damage
         
-       // return adversaire
-    //}
-    //}
+// return adversaire
+// }
+// }
 
 
 //Creer une methode (fonction) "attack" elle va prendre en parametre un personnage et elle va attaquer un character ennemi.
@@ -64,7 +64,7 @@ class Personnage {
         if adversaire.lifepoints <= 0 {
             print("\(adversaire.name) is dead")
             adversaire.player.livingCharacter.removeAll {
-                // removeAll ou "where": ""Removes all the elements that satisfy the given predicate." -> ça va supprimer tout ce qui satisfait la condition qu'on lui passe à l'intérieur. La condition c'est adversaire.name == character.name. La boucle traverse tous les noms dans le tableau des personnes vivantes et supprimer tous les éléments qui ont le même nom.
+                // removeAll ou "where": ""Removes all the elements that satisfy the given predicate." -> ça va supprimer tout ce qui satisfait la condition qu'on lui passe à l'intérieur. La condition c'est adversaire.name == character.name. La boucle traverse tous les noms dans le tableau des personnes vivantes et supprime tous les éléments qui ont le même nom.
                 (character) -> Bool in
                 if adversaire.name == character.name {
                     // si le nom de notre adversaire est = au character.name que l'on trouve dans le tableau des personnes vivantes tu l'enlèves
@@ -95,3 +95,5 @@ class Personnage {
  * un coffre peut apparaître devant un personnage quand celui joue son tour (random ?). Ce coffre contiendra forcément une arme (plus ou moins puissante que celle existante).*/
 
 // removeAll : ""Removes all the elements that satisfy the given predicate." -> ça va supprimer tous les éléments qui satisfont la condition que tu vas lui passer. La condition c'est le nom et supprimer tous les éléments qui ont le même nom.
+
+//func winnerPlayer {}

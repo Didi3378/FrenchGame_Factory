@@ -12,9 +12,10 @@ class Game {
     
     var playerOne: Player?
     var playerTwo: Player?
-    var isPlayerOneTurn: Bool = true
+    var isPlayerOneTurn: Bool = true // cette var me permet de savoir si c'est au tour du joueur 1 ou du joueur 2
     var playerGaming: Player?
     var playerWaiting: Player?
+    var selectedCharacter: Personnage?
     
     init() { }
     
@@ -81,8 +82,9 @@ class Game {
     }
     func chooseCharacter() {
         //        playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
-        if isPlayerOneTurn {
+        if isPlayerOneTurn { // on vérifie cette variable
             playerGaming = playerOne
+            // si c'est le tour du joueur 1
         } else {
             playerGaming = playerTwo
         }
@@ -90,11 +92,28 @@ class Game {
         
         let maxInt: Int = securePlayerGaming.livingCharacter.count - 1
         let minInt: Int = securePlayerGaming.livingCharacter.count - (maxInt) - 1
+        print("MAX", maxInt, "MIN", minInt) // gestion d'erreurs : permet d'établir une fourchette à ne pas dépasser minInt: 1, maxInt : 3
         
-        isPlayerOneTurn ? print("\nPlayerOne: Please choose a character") : print("\nPlayerTwo: Please choose a character")
+        isPlayerOneTurn ? print("\nPlayerOne: Please choose a character") :
+            // si c'est au tour du joueur 1 print ->
+            print("\nPlayerTwo: Please choose a character")
         securePlayerGaming.printLivingCharacter()
-        print("What's your choice ? : pick number")
-    }
+        print("What's your choice ? : please pick number")
+        
+        var index: Int = Int() // index est le nombre que la personne va entrer dans la console
+        
+        repeat {
+            index = Tools.shared.readlineInt() - 1 // - 1 en référence au let maxInt et let minInt
+            if index < minInt || index > maxInt {
+                print("Choose a number between \(minInt + 1) and \(maxInt + 1)")
+            }
+            
+        } while index < minInt || index > maxInt
+        selectedCharacter = securePlayerGaming.livingCharacter[index]
+        print(index, "")
+        print(selectedCharacter?.name)
+            
+        }
     
     
     
@@ -127,5 +146,5 @@ func endOfTheParty () {
 // Vérifier que la variable name ne soit pas vide (= String vide)
 //
 
-
+// \n pour faire un saut
 

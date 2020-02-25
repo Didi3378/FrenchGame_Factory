@@ -13,6 +13,7 @@ let frenchGame =  Game()
 frenchGame.introduction()
 frenchGame.askNameCharacter()
 frenchGame.chooseCharacter()
+// frenchGame.endOfTheParty()
 //frenchGame.Test()
 
 

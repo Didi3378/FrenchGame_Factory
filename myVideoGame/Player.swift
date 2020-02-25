@@ -19,6 +19,8 @@ class Player {
     init(names: [String]) { // tableau de noms 
         names.forEach { (names) in
             livingCharacter.append(Personnage(player: self, name: names))
+            
+            // init sert, for
         }
     }
     
@@ -26,12 +28,15 @@ class Player {
         livingCharacter.enumerated().forEach {
             
             (index, element) in
-            print("\(element.lifepoints) - LP", "\(element.weapon.damage)  - WP",  "(\(element.name)) - NAME"
+            
+            print("\(index + 1) \(element.lifepoints) - LP", "\(element.weapon.damage)   - WPD",  "(\(element.name))   - NAME"
             )
             // afficher nom des characters, lifepoints, weapon damage
-            // revoir présentation + push sur github Attention !!!!! sauvegarder sur clé usb avant de faire le push 
+            // revoir présentation + push sur github Attention !!!!! sauvegarder sur clé usb avant de faire le push
+//j'ai ajouté index
+//func pick number ?
             
-        }
+        } 
         
     }
     func printDeadCharacter() {

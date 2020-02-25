@@ -37,3 +37,9 @@ class Poire {
     
     
 }
+
+// repeat while : est une boucle, il faut une variable qui va te servir de compteur. A chaque fois elle va augmenter. 
+
+// singleton :
+
+// 

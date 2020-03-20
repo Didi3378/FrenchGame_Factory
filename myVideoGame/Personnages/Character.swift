@@ -64,7 +64,6 @@ class Personnage {
         if adversaire.lifepoints <= 0 {
             print("\(adversaire.name) is dead")
             adversaire.player.livingCharacter.removeAll {
-                // removeAll ou "where": ""Removes all the elements that satisfy the given predicate." -> ça va supprimer tout ce qui satisfait la condition qu'on lui passe à l'intérieur. La condition c'est adversaire.name == character.name. La boucle traverse tous les noms dans le tableau des personnes vivantes et supprime tous les éléments qui ont le même nom.
                 (character) -> Bool in
                 if adversaire.name == character.name {
                     // si le nom de notre adversaire est = au character.name que l'on trouve dans le tableau des personnes vivantes tu l'enlèves
@@ -85,7 +84,6 @@ class Personnage {
     }
 }
 
-// revoir le where (removeAll) et énumérer les choses manquantes pour terminer le jeu
 
 /* Choses manquantes
 * Une fois la partie terminée (lorsque tous les personnages d’une équipe sont morts), tu affiches le joueur qui a gagné et les statistiques de jeu : le nombre de tours et la liste des personnages des deux équipes avec leurs propriétés (point de vie, etc.).

@@ -12,15 +12,24 @@ class Game {
     
     var playerOne: Player?
     var playerTwo: Player?
-    var isPlayerOneTurn: Bool = true // cette var me permet de savoir si c'est au tour du joueur 1 ou du joueur 2
+    var isPlayerOneTurn: Bool = true
     var playerGaming: Player?
     var playerWaiting: Player?
     var selectedCharacter: Personnage?
+    
+    private var value : Int = Int()
     
     init() { }
     
     func introduction() {
         print("Welcome in French Game Factory!\nSelect the name of your characters\n")
+    }
+    
+    func launchTurn() {
+        chooseCharacter()
+        chooseAction()
+        gateBox()
+        
     }
     
     func askNameCharacter() { 
@@ -92,59 +101,114 @@ class Game {
         
         let maxInt: Int = securePlayerGaming.livingCharacter.count - 1
         let minInt: Int = securePlayerGaming.livingCharacter.count - (maxInt) - 1
-        print("MAX", maxInt, "MIN", minInt) // gestion d'erreurs : permet d'établir une fourchette à ne pas dépasser minInt: 1, maxInt : 3
+        print("MAX", maxInt, "MIN", minInt)
         
         isPlayerOneTurn ? print("\nPlayerOne: Please choose a character") :
             // si c'est au tour du joueur 1 print ->
             print("\nPlayerTwo: Please choose a character")
         securePlayerGaming.printLivingCharacter()
-        print("What's your choice ? : please pick number")
+        //print("What's your choice ? : please pick number")
+        print("What's your choice ? : please choose character name")
         
-        var index: Int = Int() // index est le nombre que la personne va entrer dans la console
+        //        var index: Int = Int() // index est le nombre que la personne va entrer dans la console
+        var isFind: Bool = false 
         
         repeat {
-            index = Tools.shared.readlineInt() - 1 // - 1 en référence au let maxInt et let minInt
-            if index < minInt || index > maxInt {
-                print("Choose a number between \(minInt + 1) and \(maxInt + 1)")
+            let value = Tools.shared.readlineString()
+            if let perso = securePlayerGaming.livingCharacter.first(where: {$0.name == value}){ // $0 est un personnage,
+                
+                selectedCharacter = perso
+                print("Vous avez choisi : \n",selectedCharacter?.name, selectedCharacter?.lifepoints, selectedCharacter?.weapon.damage)
+                isFind = true // c'est qu'on l'a trouvé
+            } else {
+                print("Please choose a living character")
+                isFind = false
             }
             
-        } while index < minInt || index > maxInt
-        selectedCharacter = securePlayerGaming.livingCharacter[index]
-        print(index, "")
-        print(selectedCharacter?.name)
+            //            }
+            
+        } while !isFind
+        
+        //index < minInt || index > maxInt
+        //        selectedCharacter = securePlayerGaming.livingCharacter[index]
+        //        print(index, "")
+        //        print(selectedCharacter?.name)
+        
+        // ctrl i
+        
+    }
+    func chooseAction() {
+        
+        guard let secureSelectedCharacter = selectedCharacter else {return}
+        
+        
+        
+        isPlayerOneTurn ? print("\nPlayerOne : What kind of action do you want to do? : ") : print("\nPlayerTwo : What kind of action do you want to do? : ")
+        
+        print("1 : Attack an ennemy || WPD :\(secureSelectedCharacter.weapon.damage)")
+        print("2 : Heal an ally || HEAL :\(secureSelectedCharacter.heal)")
+        
+        repeat {
+            value = Tools.shared.readlineInt()
+            if value < 1 || value > 2 {
+                print("Number should be 1 or 2")
+            }
+            
+            
+        } while value < 1 || value > 2
+        
+    }
+    func gateBox() {
+        
+        var index: Int = 0
+        var randomgateBox : Int = Int.random(in:1...10)
+        
+        if randomgateBox == 5 {
+            let lootWeapon : Int = LootBox().damage
+            
+            print("\nA loot just appear, it contains a weapon that makes : \(lootWeapon) damage")
+            print("Do you want to take it?(1 for yes, 2 for no)")
+            
+            repeat {
+                index = Tools.shared.readlineInt()
+                if index < 1 || index > 2 {
+                    print("Number should be 1 or 2")
+                }
+            } while index < 1 || index > 2
+            if index == 1 {
+                selectedCharacter?.weapon.damage = lootWeapon
+            }
+            
+            func doAction() {
+                guard let securePlayerGaming = playerGaming else {return}
+                guard let securePlayerWaiting = playerWaiting else {return}
+                guard let secureSelectedCharacter = selectedCharacter else {return}
+                
+                
+                isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action")
+                
+                var isAttacking: Bool?
+                
+                let maxInt: Int = securePlayerWaiting.livingCharacter.count - 1
+                let minInt: Int = securePlayerWaiting.livingCharacter.count - (maxInt) - 1
+                print("MAX", maxInt, "MIN", minInt)
+                
+                if index == 1 {
+                    securePlayerWaiting.printLivingCharacter()
+                    isAttacking = true
+                    
+                } else if index == 2 {
+                    securePlayerGaming.printLivingCharacter()
+                    isAttacking = false
+                }
+            
+                
+            }
             
         }
-    
-    
-    
+        
+    }
 }
 
-func endOfTheParty () {
-    let player = Player(names: ["tutu", "tata", "toto"])
-    
-}
-
-
-
-// réviser repeat et while
-// blocs d'instructions
-// lundi 20h
-// mercredi 20h -> révisez repeat et while, les singletons, les fonctions avec prises de variables, exos
-// diagramme de classes, ......
-
-
-// Instructions 2
-//2. Réaliser le combat au tour par tour. L’idée, c’est donc que le joueur 1 puisse choisir un personnage de son équipe, choisir le personnage qui va subir l’action (dans l’équipe adverse en cas d’attaque ou dans son équipe en cas de soin), de réaliser l’action, puis de vérifier si la partie est terminée, sinon c’est au tour du joueur 2 ;
-//a -> class Combat avec une func fight, func soin
-//b -> tableau personnages qui combattent, lorsque l'un d'entre eux qu'on ne puisse plus le choisir puis choisir un autre joueur
-//c -> utiliser condition "si personnage dead", choisir un autre joueur
-//d -> méthode partie terminée : faire jouer le player 2
-
-
-
-
-// Vérifier que la variable name ne soit pas vide (= String vide)
-//
-
-// \n pour faire un saut
-
+// 14h
+// switch case

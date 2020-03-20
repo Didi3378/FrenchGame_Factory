@@ -12,9 +12,11 @@ import Foundation
 let frenchGame =  Game()
 frenchGame.introduction()
 frenchGame.askNameCharacter()
-frenchGame.chooseCharacter()
+frenchGame.launchTurn()
+//frenchGame.chooseCharacter()
+//frenchGame.chooseAction()
+//frenchGame.gateBox()
 // frenchGame.endOfTheParty()
-//frenchGame.Test()
 
 
 //let perso1 = Character("Toto")
@@ -53,7 +55,7 @@ frenchGame.chooseCharacter()
 
 
 
-// Savoir créer une class, une fonction, un singleton et guard let
+
 
 //Test.shared.affNumber2(variable: 5)
 

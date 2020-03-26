@@ -91,14 +91,16 @@ class Game {
         playerTwo = Player(names: [characterNameArray[3], characterNameArray[4], characterNameArray[5]])
     }
     func chooseCharacter() {
-        //        playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
+        //playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
         if isPlayerOneTurn { // on vérifie cette variable
             playerGaming = playerOne
-            // si c'est le tour du joueur 1
+           // si c'est le tour du joueur 1
         } else {
             playerGaming = playerTwo
         }
+        playerWaiting = (isPlayerOneTurn) ? playerTwo : playerOne
         guard let securePlayerGaming = playerGaming else {return}
+        
         
         let maxInt: Int = securePlayerGaming.livingCharacter.count - 1
         let minInt: Int = securePlayerGaming.livingCharacter.count - (maxInt) - 1

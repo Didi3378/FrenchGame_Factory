@@ -117,8 +117,11 @@ class Game {
             let value = Tools.shared.readlineString()
             if let perso = securePlayerGaming.livingCharacter.first(where: {$0.name == value}){ // $0 est un personnage,
                 
+                
                 selectedCharacter = perso
-                print("Vous avez choisi : \n",selectedCharacter?.name, selectedCharacter?.lifepoints, selectedCharacter?.weapon.damage)
+                guard let secureSelectedCharacter = selectedCharacter else {return}
+                
+                print("Vous avez choisi : \n",secureSelectedCharacter.name, secureSelectedCharacter.lifepoints,secureSelectedCharacter.weapon.damage)
                 isFind = true // c'est qu'on l'a trouvé
             } else {
                 print("Please choose a living character")

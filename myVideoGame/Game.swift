@@ -29,6 +29,7 @@ class Game {
         chooseCharacter()
         chooseAction()
         gateBox()
+        doAction()
         
     }
     
@@ -164,7 +165,7 @@ class Game {
     func gateBox() {
         
         var index: Int = 0
-        var randomgateBox : Int = Int.random(in:1...10)
+        let randomgateBox : Int = Int.random(in:1...10)
         
         if randomgateBox == 5 {
             let lootWeapon : Int = LootBox().damage
@@ -182,32 +183,61 @@ class Game {
                 selectedCharacter?.weapon.damage = lootWeapon
             }
             
-            func doAction() {
-                guard let securePlayerGaming = playerGaming else {return}
-                guard let securePlayerWaiting = playerWaiting else {return}
-                guard let secureSelectedCharacter = selectedCharacter else {return}
-                
-                
-                isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action")
-                
-                var isAttacking: Bool?
-                
-                let maxInt: Int = securePlayerWaiting.livingCharacter.count - 1
-                let minInt: Int = securePlayerWaiting.livingCharacter.count - (maxInt) - 1
-                print("MAX", maxInt, "MIN", minInt)
-                
-                if index == 1 {
-                    securePlayerWaiting.printLivingCharacter()
-                    isAttacking = true
-                    
-                } else if index == 2 {
-                    securePlayerGaming.printLivingCharacter()
-                    isAttacking = false
-                }
+
             
-                
+        }
+        
+    }
+    
+    private func doAction() {
+        guard let securePlayerGaming = playerGaming else { return }
+        guard let securePlayerWaiting = playerWaiting else { return }
+        guard let secureSelectedCharacter = selectedCharacter else { return }
+        
+        
+        isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action")
+        
+        var isAttacking: Bool?
+        
+        
+        let maxInt: Int = securePlayerWaiting.livingCharacter.count - 1
+        let minInt: Int = securePlayerWaiting.livingCharacter.count - (maxInt) - 1
+        print("MAX", maxInt, "MIN", minInt)
+        
+        if value == 1 {
+            securePlayerWaiting.printLivingCharacter()
+            isAttacking = true
+            
+        } else if value == 2 {
+            securePlayerGaming.printLivingCharacter()
+            isAttacking = false
+        }
+        guard let secureIsAttacking = isAttacking else { return }
+        
+        repeat {
+            value = Tools.shared.readlineInt() - 1
+            
+            if value < minInt || value > maxInt {
+                print("Number should be between \(minInt + 1) and \(maxInt + 1)")
             }
-            
+        } while value < minInt || value > maxInt
+        if secureIsAttacking {
+            let target = securePlayerWaiting.livingCharacter[value]
+            secureSelectedCharacter.attack(adversaire: target)
+        } else {
+            let target = securePlayerGaming.livingCharacter[value]
+            secureSelectedCharacter.healCharacter(personnage: target)
+        }
+        isPlayerOneTurn.toggle()
+        
+        if !isPlayerOneTurn  {
+            Tools.shared.increaseTurn()
+        }
+        
+        if !(securePlayerGaming.diesCharacter == 3) && !(securePlayerWaiting.diesCharacter == 3) {
+            launchTurn()
+        } else {
+            print("Game is finished")
         }
         
     }

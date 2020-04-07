@@ -10,6 +10,7 @@ import Cocoa
 
 class Game {
     
+    // MARK: - Attributs
     var playerOne: Player?
     var playerTwo: Player?
     var isPlayerOneTurn: Bool = true
@@ -19,25 +20,24 @@ class Game {
     
     private var value : Int = Int()
     
+    // MARK: - Constructor
     init() { }
     
+    // MARK: - METHODS
     func introduction() {
         print("Welcome in French Game Factory!\nSelect the name of your characters\n")
     }
-    
     func launchTurn() {
         chooseCharacter()
         chooseAction()
         gateBox()
         doAction()
-        
     }
-    
-    func askNameCharacter() { 
+    func askNameCharacter() {
         var characterNameArray: [String] = [String]()
         
         repeat {
-            print("Player 1 -> :")
+            print("Player 1 👩🏽‍🦰 -> :")
             var verify: Bool = false
             repeat {
                 let name = Tools.shared.readlineString()
@@ -49,14 +49,11 @@ class Game {
                         characterNameArray.append(name)
                     } else {
                         print("veuillez entrer le nom d'un personnage svp")
-                        
                     }
-                    
-                    
                 } else {
                     print("name is already taken")
-                } //Vérifier que la variable name ne soit pas vide (= String vide)
-            } while verify == false // tant que
+                }
+            } while verify == false
             
         } while characterNameArray.count != 3
         print("Voici les noms: ", characterNameArray[0], characterNameArray[1], characterNameArray[2])
@@ -64,7 +61,7 @@ class Game {
         playerOne = Player(names: [characterNameArray[0], characterNameArray[1], characterNameArray[2]])
         
         repeat {
-            print("Player 2 -> :")
+            print("Player 2 🧑🏻‍🦱 -> :")
             var verify: Bool = false
             repeat {
                 let name = Tools.shared.readlineString()
@@ -81,23 +78,23 @@ class Game {
                     }
                     
                 } else {
-                    print("name is already taken")
-                } 
+                    print("name is already taken ⛔️")
+                }
                 
-            } while verify == false // tant que
+            } while verify == false
             
         } while characterNameArray.count != 6
         print("Voici les noms: ", characterNameArray[3], characterNameArray[4], characterNameArray[5])
         playerTwo = Player(names: [characterNameArray[3], characterNameArray[4], characterNameArray[5]])
     }
     func chooseCharacter() {
-        //playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
-        if isPlayerOneTurn { // on vérifie cette variable
-            playerGaming = playerOne
-           // si c'est le tour du joueur 1
-        } else {
-            playerGaming = playerTwo
-        }
+        playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
+        //        if isPlayerOneTurn { // on vérifie cette variable
+        //            playerGaming = playerOne
+        //           // si c'est le tour du joueur 1
+        //        } else {
+        //            playerGaming = playerTwo
+        //        }
         playerWaiting = (isPlayerOneTurn) ? playerTwo : playerOne
         guard let securePlayerGaming = playerGaming else {return}
         
@@ -106,12 +103,12 @@ class Game {
         let minInt: Int = securePlayerGaming.livingCharacter.count - (maxInt) - 1
         print("MAX", maxInt, "MIN", minInt)
         
-        isPlayerOneTurn ? print("\nPlayerOne: Please choose a character") :
+        isPlayerOneTurn ? print("\nPlayerOne: Please choose a character 👩🏼‍🎤 🦹🏽‍♀️ 🦸🏼‍♂️") :
             // si c'est au tour du joueur 1 print ->
-            print("\nPlayerTwo: Please choose a character")
+            print("\nPlayerTwo: Please choose a character 👩🏼‍🎤 🦹🏽‍♀️ 🦸🏼‍♂️")
         securePlayerGaming.printLivingCharacter()
         //print("What's your choice ? : please pick number")
-        print("What's your choice ? : please choose character name")
+        print("What's your choice ? : please write a character name in the console 📝") 
         
         //        var index: Int = Int() // index est le nombre que la personne va entrer dans la console
         var isFind: Bool = false 
@@ -131,23 +128,12 @@ class Game {
                 isFind = false
             }
             
-            //            }
-            
         } while !isFind
-        
-        //index < minInt || index > maxInt
-        //        selectedCharacter = securePlayerGaming.livingCharacter[index]
-        //        print(index, "")
-        //        print(selectedCharacter?.name)
-        
-        // ctrl i
         
     }
     func chooseAction() {
         
         guard let secureSelectedCharacter = selectedCharacter else {return}
-        
-        
         
         isPlayerOneTurn ? print("\nPlayerOne : What kind of action do you want to do? : ") : print("\nPlayerTwo : What kind of action do you want to do? : ")
         
@@ -159,10 +145,7 @@ class Game {
             if value < 1 || value > 2 {
                 print("Number should be 1 or 2")
             }
-            
-            
         } while value < 1 || value > 2
-        
     }
     func gateBox() {
         
@@ -172,7 +155,7 @@ class Game {
         if randomgateBox == 5 {
             let lootWeapon : Int = LootBox().damage
             
-            print("\nA loot just appear, it contains a weapon that makes : \(lootWeapon) damage")
+            print("\nA loot just appear 🎁, it contains a weapon that makes : \(lootWeapon) damage")
             print("Do you want to take it?(1 for yes, 2 for no)")
             
             repeat {
@@ -184,27 +167,23 @@ class Game {
             if index == 1 {
                 selectedCharacter?.weapon.damage = lootWeapon
             }
-            
-
-            
         }
-        
     }
-    
     private func doAction() {
         guard let securePlayerGaming = playerGaming else { return }
         guard let securePlayerWaiting = playerWaiting else { return }
         guard let secureSelectedCharacter = selectedCharacter else { return }
         
+        //print("====== PlayerOneTurn ======", isPlayerOneTurn)
         
-        isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action")
+        isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action") // 1, 2 ou 3
         
         var isAttacking: Bool?
         
         
         let maxInt: Int = securePlayerWaiting.livingCharacter.count - 1
         let minInt: Int = securePlayerWaiting.livingCharacter.count - (maxInt) - 1
-        print("MAX", maxInt, "MIN", minInt)
+        
         
         if value == 1 {
             securePlayerWaiting.printLivingCharacter()
@@ -239,11 +218,26 @@ class Game {
         if !(securePlayerGaming.diesCharacter == 3) && !(securePlayerWaiting.diesCharacter == 3) {
             launchTurn()
         } else {
-            print("Game is finished")
+            print("Game is finished\n\n")
+            gameStatistics()
+        }
+    }
+    func gameStatistics() {
+        isPlayerOneTurn ? print("\n PlayerTwo wins") : print("\n PlayerOne wins")
+        print("\nNumber Of Turn : \(Tools.shared.numberOfturn)\n")
+        
+        guard let securePlayerOne = playerOne else {return}
+        guard let securePlayerTwo = playerTwo else {return}
+        
+        if securePlayerOne.livingCharacter.count > 0 {
+            print("playerOne character in life : ")
+            securePlayerOne.printLivingCharacter()
+        }
+        if securePlayerOne.deadCharacter.count > 0 {
+            print("\nplayerOne character deads : ")
+            securePlayerOne.printDeadCharacter()
         }
         
     }
 }
 
-// 14h
-// switch case

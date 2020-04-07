@@ -7,25 +7,25 @@
 //
 
 class Player {
+    
+    // MARK: - Attributs
     var livingCharacter: [Personnage] = [Personnage]()
     var deadCharacter: [Personnage] = [Personnage]()
     var diesCharacter: Int = 0
     
-    
+    // MARK: - Constructor
     init(names: [String]) { // tableau de noms 
         names.forEach { (names) in
             livingCharacter.append(Personnage(player: self, name: names))
         }
     }
-    
+    // MARK: - METHODS
     func printLivingCharacter() {
         livingCharacter.enumerated().forEach {
             
             (index, element) in
             
-            print("(\(element.lifepoints) - LP) ||", "(\(element.weapon.damage) - WPD) ||",  "(\(element.name) - NAME)"
-            )
-            
+            print("\(index + 1).", "(\(element.lifepoints) - LP) ||", "(\(element.weapon.damage) - WPD) ||",  "(\(element.name) - NAME)")
             
         } 
         

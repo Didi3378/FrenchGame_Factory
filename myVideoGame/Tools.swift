@@ -11,9 +11,11 @@ import Foundation
 // Boite à outils
 
 class Tools {
-    // MARK: - Singleton : c'est une classe qui reste toujours allumé 
+    
+    // MARK: - Attributs
     var numberOfturn: Int = 0
     
+    // MARK: - METHODS
     static let shared: Tools = Tools()
     
     func readlineString() -> String {
@@ -21,7 +23,6 @@ class Tools {
         guard let strData = str else {return ""}
         
         return strData
-        
     }
     
     func readlineInt() -> Int {
@@ -32,7 +33,7 @@ class Tools {
     }
     
     func increaseTurn() {
-        numberOfturn = numberOfturn + 1 // numberOfturn += 1
+        numberOfturn = numberOfturn + 1 
         
     }
 }

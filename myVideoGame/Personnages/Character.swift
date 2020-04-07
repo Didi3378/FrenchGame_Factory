@@ -8,61 +8,29 @@
 
 import Cocoa
 
-//class Personnage {
-    
-// let name: String
-// var lifePoints: Int = 100
-// var weapon: Weapon = Weapon()
-
-// init(characterName: String, lifePoints: Int, weapon: Weapon) {
-//     self.name = characterName
-//     self.lifePoints = lifePoints
-//      self.weapon = weapon
-    
-// }
-// func attack(adversaire: Personnage) -> Personnage {
-//  adversaire.lifePoints = adversaire.lifePoints - weapon.damage
-        
-// return adversaire
-// }
-// }
-
-
-//Creer une methode (fonction) "attack" elle va prendre en parametre un personnage et elle va attaquer un character ennemi.
-//Si le personnage ennemi est mort écrire le personnage est mort sinon ecrire le nombre de points de vie du personnage ennemi
-
-
-//class Weapon {
-//    var weaponName: String
-//    var damage: Int
-//    init(weaponName: String, damage: Int) {
-//        self.weaponName = weaponName
-//        self.damage = damage
-//    }
-//}
-
-
-
 class Personnage {
+    
+    // MARK: - Attributs
     let player: Player
     var name: String
     var lifepoints: Int = 100
     var weapon : Weapon = Weapon()
     var heal: Int = Int.random(in: 10..<40)
     
+    
+    // MARK: - Constructor
     init (player: Player, name: String) {
         self.player = player
         self.name = name
-        
-        
     }
-    
+    // MARK: - METHODS
     func attack (adversaire: Personnage) {
         
         adversaire.lifepoints = adversaire.lifepoints - weapon.damage
         
         if adversaire.lifepoints <= 0 {
             print("\(adversaire.name) is dead")
+            adversaire.player.diesCharacter += 1
             adversaire.player.livingCharacter.removeAll {
                 (character) -> Bool in
                 if adversaire.name == character.name {
@@ -83,15 +51,3 @@ class Personnage {
         print("\(personnage.name) is now \(personnage.lifepoints) LP")
     }
 }
-
-
-/* Choses manquantes
-* Une fois la partie terminée (lorsque tous les personnages d’une équipe sont morts), tu affiches le joueur qui a gagné et les statistiques de jeu : le nombre de tours et la liste des personnages des deux équipes avec leurs propriétés (point de vie, etc.).
- func avec print "joueur qui a gagné
- func avec stats : nombre de tours et la liste des personnages des 2 équipes : lifepoints, name, weapon etc.....
- 
- * un coffre peut apparaître devant un personnage quand celui joue son tour (random ?). Ce coffre contiendra forcément une arme (plus ou moins puissante que celle existante).*/
-
-// removeAll : ""Removes all the elements that satisfy the given predicate." -> ça va supprimer tous les éléments qui satisfont la condition que tu vas lui passer. La condition c'est le nom et supprimer tous les éléments qui ont le même nom.
-
-//func winnerPlayer {}

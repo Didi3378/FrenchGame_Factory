@@ -9,8 +9,14 @@
 import Cocoa
 
 class Weapon {
+    
+// MARK: - Attributs
+    
     var weaponName: String = ""
     var damage: Int = Int.random(in: 1...50)
+  
+    
+// MARK: - Constructor
     
     init() {
         

@@ -69,8 +69,8 @@
 		59261B4523B8D38900C5C20C /* myVideoGame */ = {
 			isa = PBXGroup;
 			children = (
-				59261B4E23B8D4D700C5C20C /* Armes */,
-				59261B4D23B8D49500C5C20C /* Personnages */,
+				59261B4E23B8D4D700C5C20C /* Weapons */,
+				59261B4D23B8D49500C5C20C /* Characters */,
 				59258F2124228F8E00A929AE /* LootBox.swift */,
 				59261B4623B8D38900C5C20C /* main.swift */,
 				59261B5423B8D6CA00C5C20C /* Game.swift */,
@@ -80,20 +80,20 @@
 			path = myVideoGame;
 			sourceTree = "<group>";
 		};
-		59261B4D23B8D49500C5C20C /* Personnages */ = {
+		59261B4D23B8D49500C5C20C /* Characters */ = {
 			isa = PBXGroup;
 			children = (
 				59261B4F23B8D53A00C5C20C /* Character.swift */,
 			);
-			path = Personnages;
+			path = Characters;
 			sourceTree = "<group>";
 		};
-		59261B4E23B8D4D700C5C20C /* Armes */ = {
+		59261B4E23B8D4D700C5C20C /* Weapons */ = {
 			isa = PBXGroup;
 			children = (
 				59261B5123B8D61900C5C20C /* Weapon.swift */,
 			);
-			path = Armes;
+			path = Weapons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,7 +123,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Diewo Wandianga";
 				TargetAttributes = {
 					59261B4223B8D38900C5C20C = {
@@ -283,6 +283,7 @@
 		59261B4B23B8D38900C5C20C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -292,6 +293,7 @@
 		59261B4C23B8D38900C5C20C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

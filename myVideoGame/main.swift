@@ -13,10 +13,8 @@ let frenchGame =  Game()
 frenchGame.introduction()
 frenchGame.askNameCharacter()
 frenchGame.launchTurn()
-//frenchGame.chooseCharacter()
-//frenchGame.chooseAction()
-//frenchGame.gateBox()
-// frenchGame.endOfTheParty()
+
+
 
 
 

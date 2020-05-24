@@ -9,14 +9,14 @@
 class Player {
     
     // MARK: - Attributs
-    var livingCharacter: [Personnage] = [Personnage]()
-    var deadCharacter: [Personnage] = [Personnage]()
+    var livingCharacter: [Character] = [Character]()
+    var deadCharacter: [Character] = [Character]()
     var diesCharacter: Int = 0
     
     // MARK: - Constructor
-    init(names: [String]) { // tableau de noms 
+    init(names: [String]) {
         names.forEach { (names) in
-            livingCharacter.append(Personnage(player: self, name: names))
+            livingCharacter.append(Character(player: self, name: names))
         }
     }
     // MARK: - METHODS

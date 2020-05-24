@@ -16,7 +16,7 @@ class Game {
     var isPlayerOneTurn: Bool = true
     var playerGaming: Player?
     var playerWaiting: Player?
-    var selectedCharacter: Personnage?
+    var selectedCharacter: Character?
     
     private var value : Int = Int()
     
@@ -48,7 +48,7 @@ class Game {
                         verify = true
                         characterNameArray.append(name)
                     } else {
-                        print("veuillez entrer le nom d'un personnage svp")
+                        print(" Enter character name, please")
                     }
                 } else {
                     print("name is already taken")
@@ -73,8 +73,7 @@ class Game {
                         verify = true
                         characterNameArray.append(name)
                     } else {
-                        print("veuillez entrer le nom d'un personnage svp")
-                        
+                        print("Enter character name, please")
                     }
                     
                 } else {
@@ -84,45 +83,33 @@ class Game {
             } while verify == false
             
         } while characterNameArray.count != 6
-        print("Voici les noms: ", characterNameArray[3], characterNameArray[4], characterNameArray[5])
+        print("Here is the names : ", characterNameArray[3], characterNameArray[4], characterNameArray[5])
         playerTwo = Player(names: [characterNameArray[3], characterNameArray[4], characterNameArray[5]])
     }
     func chooseCharacter() {
         playerGaming = (isPlayerOneTurn) ? playerOne : playerTwo
-        //        if isPlayerOneTurn { // on vérifie cette variable
-        //            playerGaming = playerOne
-        //           // si c'est le tour du joueur 1
-        //        } else {
-        //            playerGaming = playerTwo
-        //        }
         playerWaiting = (isPlayerOneTurn) ? playerTwo : playerOne
         guard let securePlayerGaming = playerGaming else {return}
         
-        
-        let maxInt: Int = securePlayerGaming.livingCharacter.count - 1
-        let minInt: Int = securePlayerGaming.livingCharacter.count - (maxInt) - 1
-        print("MAX", maxInt, "MIN", minInt)
-        
         isPlayerOneTurn ? print("\nPlayerOne: Please choose a character 👩🏼‍🎤 🦹🏽‍♀️ 🦸🏼‍♂️") :
-            // si c'est au tour du joueur 1 print ->
             print("\nPlayerTwo: Please choose a character 👩🏼‍🎤 🦹🏽‍♀️ 🦸🏼‍♂️")
         securePlayerGaming.printLivingCharacter()
-        //print("What's your choice ? : please pick number")
+        
         print("What's your choice ? : please write a character name in the console 📝") 
         
-        //        var index: Int = Int() // index est le nombre que la personne va entrer dans la console
+        
         var isFind: Bool = false 
         
         repeat {
             let value = Tools.shared.readlineString()
-            if let perso = securePlayerGaming.livingCharacter.first(where: {$0.name == value}){ // $0 est un personnage,
+            if let perso = securePlayerGaming.livingCharacter.first(where: {$0.name == value}) {
                 
                 
                 selectedCharacter = perso
                 guard let secureSelectedCharacter = selectedCharacter else {return}
                 
-                print("Vous avez choisi : \n",secureSelectedCharacter.name, secureSelectedCharacter.lifepoints,secureSelectedCharacter.weapon.damage)
-                isFind = true // c'est qu'on l'a trouvé
+                print("You chose : \n",secureSelectedCharacter.name, secureSelectedCharacter.lifepoints,secureSelectedCharacter.weapon.damage)
+                isFind = true
             } else {
                 print("Please choose a living character")
                 isFind = false
@@ -174,9 +161,8 @@ class Game {
         guard let securePlayerWaiting = playerWaiting else { return }
         guard let secureSelectedCharacter = selectedCharacter else { return }
         
-        //print("====== PlayerOneTurn ======", isPlayerOneTurn)
         
-        isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action") // 1, 2 ou 3
+        isPlayerOneTurn ? print("\nPlayerOne : Choose on wich character you want to perform an action") : print("\nPlayerTwo : Choose on wich character you want to perform an action")
         
         var isAttacking: Bool?
         
@@ -204,10 +190,10 @@ class Game {
         } while value < minInt || value > maxInt
         if secureIsAttacking {
             let target = securePlayerWaiting.livingCharacter[value]
-            secureSelectedCharacter.attack(adversaire: target)
+            secureSelectedCharacter.attack(ennemy: target)
         } else {
             let target = securePlayerGaming.livingCharacter[value]
-            secureSelectedCharacter.healCharacter(personnage: target)
+            secureSelectedCharacter.healCharacter(character: target)
         }
         isPlayerOneTurn.toggle()
         
@@ -238,6 +224,14 @@ class Game {
             securePlayerOne.printDeadCharacter()
         }
         
+        if securePlayerTwo.livingCharacter.count > 0 {
+            print("playerTwo character in life : ")
+            securePlayerTwo.printLivingCharacter()
+        }
+        if securePlayerTwo.deadCharacter.count > 0 {
+            print("\nplayerTwo character deads : ")
+            securePlayerTwo.printDeadCharacter()
+        }
     }
 }
 
